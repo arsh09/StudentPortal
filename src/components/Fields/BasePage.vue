@@ -5,10 +5,9 @@
                 {{description}}
 			</b-card-text>
             <b-card-body>
-                <div>
-                <b-button variant="dark" size="md" block @click="$router.push(page)">{{title}}</b-button>
-
-                </div>
+                <b-row>
+                    <b-button variant="outline-dark" size="md" block @click="$router.push(page)">{{title}}</b-button>
+                </b-row>
             </b-card-body>
 		</b-card>
 	</div>

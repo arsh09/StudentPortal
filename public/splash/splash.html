@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<htm>
+
+  <head>
+
+  </head>
+  <body>
+
+    <div class="">
+        <img src="./icon.svg" width="700" style="margin-top : 0%;;"/>
+        <div class="loader"></div>
+     </div> 
+
+     <style>
+        ::selection {
+          color: none !important;
+          background: none !important;
+        }
+        
+        
+        body { 
+            background-color: #00000000 !important;
+            /* background-image: linear-gradient(to right , white, white); */
+        }
+
+        .loader {
+          position: absolute;
+          left: 53%;
+          top: 73%;
+          z-index: 1;
+          border: 6px solid #f3e5e5; /* Light grey */
+          border-top: 6px solid purple; /* Blue */
+          border-radius: 50%;
+          width: 30px;
+          height: 30px;
+          animation: spin 2s linear infinite;
+        } 
+
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+     </style>
+  </body>
+
+</htm>

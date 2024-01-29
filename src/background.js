@@ -52,7 +52,7 @@ class CreateApp {
 
     app.on("ready", async () => {
 
-      windowManagerFactory.CreateSplashWindow()
+      // windowManagerFactory.CreateSplashWindow()
       if (isDevelopment && !process.env.IS_TEST) {
         try {
           await installExtension(VUEJS_DEVTOOLS);

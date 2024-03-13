@@ -12,7 +12,7 @@ export const newStudentFormJson = {
                     elements: [
                         {
                             type: "text",
-                            name: "studentname",
+                            name: "student_name",
                             title: "Student Name",
                             startWithNewLine: true,
                             isRequired: false
@@ -31,7 +31,7 @@ export const newStudentFormJson = {
                         },
                         {
                             type: "text",
-                            name: "birthdate",
+                            name: "date_of_birth",
                             title: "Date of birth",
                             startWithNewLine: false,
                             isRequired: false,
@@ -41,7 +41,7 @@ export const newStudentFormJson = {
                         },
                         {
                             type: "text",
-                            name: "bformid",
+                            name: "birth_form_number",
                             startWithNewLine: true,
                             title: "Birth (B) form number",
                             isRequired: false
@@ -66,21 +66,21 @@ export const newStudentFormJson = {
                         },
                         {
                             type: "text",
-                            name: "guardianname",
+                            name: "guardian_name",
                             startWithNewLine: true,
                             title: "Guardian Name",
                             isRequired: false
                         },
                         {
                             type: "text",
-                            name: "guardiancnic",
+                            name: "guardian_cnic",
                             startWithNewLine: false,
                             title: "Guardian CNIC",
                             isRequired: false
                         },
                         {
                             type: "dropdown",
-                            name: "guardianrelation",
+                            name: "guardian_relation",
                             startWithNewLine: false,
                             title: "Relation with Guardian",
                             isRequired: false,
@@ -94,7 +94,7 @@ export const newStudentFormJson = {
                         },
                         {
                             type: "text",
-                            name: "guardiancontact",
+                            name: "guardian_phone",
                             startWithNewLine: false,
                             title: "Guardian Contact",
                             isRequired: false
@@ -109,7 +109,7 @@ export const newStudentFormJson = {
                     elements: [
                         {
                             type: "dropdown",
-                            name: "schoolname",
+                            name: "school_name",
                             title: "School Name",
                             startWithNewLine: true,
                             isRequired: false,
@@ -119,7 +119,7 @@ export const newStudentFormJson = {
                         },
                         {
                             type: "dropdown",
-                            name: "campusname",
+                            name: "campus_name",
                             startWithNewLine: false,
                             title: "Campus Name",
                             isRequired: false,
@@ -129,14 +129,14 @@ export const newStudentFormJson = {
                         },
                         {
                             type: "text",
-                            name: "gnr_id",
+                            name: "gnr_number",
                             title: "GRN ID",
                             startWithNewLine: false,
                             isRequired: false,
                         },
                         {
                             type: "text",
-                            name: "admissiondate",
+                            name: "admission_date",
                             title: "Admission Date",
                             startWithNewLine: true,
                             isRequired: false,
@@ -146,14 +146,14 @@ export const newStudentFormJson = {
                         },
                         {
                             type: "text",
-                            name: "classid",
+                            name: "class_id",
                             startWithNewLine: false,
                             title: "Class ID",
                             isRequired: false
                         },
                         {
                             type: "text",
-                            name: "groupid",
+                            name: "group_id",
                             startWithNewLine: false,
                             title: "Group ID",
                             isRequired: false

@@ -20,7 +20,7 @@ import { mapActions } from "vuex";
 
 const { 
 	DATABASE_INTERFACE_CHANNEL,
-	HANDLE_ADD_STUDENT
+	HANDLE_SQL_QUERY
 
 } = require("@/backend/communication/constants.js")
 
@@ -46,7 +46,6 @@ export default {
 	methods: {	
 		...mapActions("notifications", ["handleAddNotification"]),
 
-
 		handle_on_value_changed : function(survey, options){
 			( survey, options )
 		},
@@ -62,31 +61,52 @@ export default {
 				new_student_json[q.name] = survey.data[q.name] ?? ""
 			}
 
-			DATABASE_INTERFACE_CHANNEL
-			HANDLE_ADD_STUDENT
+			new_student_json['school_id'] = ""
+			new_student_json['campus_id'] = ""
+			new_student_json['extra_data'] = ""
+
 			const response = await window.ipcRenderer.send( DATABASE_INTERFACE_CHANNEL, {
-				responseChannel : `${HANDLE_ADD_STUDENT}-respoonse`,
+				responseChannel : `${HANDLE_SQL_QUERY}-respoonse`,
 				params : {
-					e : HANDLE_ADD_STUDENT, 
+					e : HANDLE_SQL_QUERY, 
 					data : {
-						add_student : new_student_json
+						data_point : new_student_json,
+						sql : this.handle_create_add_student_query()
 					}
 				}
 			})
 
-			console.log( response.data )
+			this.handleAddNotification({
+				msg : response.data.response.msg
+			})
 
-			setTimeout( ()=>{
-				survey.allow = true
+			this.isCompleting = false
+			if (response.data.response.status){
 				this.$router.push('/')
-				this.handleAddNotification({
-					msg : "New student has been added into the database. "
-				})
+			}
 
-			}, 1000)
 		},
 
-		
+		handle_create_add_student_query: function(){
+
+			const sql = `
+				INSERT INTO students(
+					student_name, gender, date_of_birth, birth_form_number, country, 
+					religion, guardian_name, guardian_cnic, guardian_phone, guardian_relation, 
+					school_name, school_id, campus_name, campus_id, admission_date, 
+					class_id, group_id, gnr_number, remarks, extra_data
+				) 
+				
+				VALUES( @student_name, @gender, @date_of_birth, @birth_form_number, @country,
+					@religion, @guardian_name, @guardian_cnic, @guardian_phone, @guardian_relation, 
+					@school_name, @school_id, @campus_name, @campus_id, @admission_date, 
+					@class_id, @group_id, @gnr_number, @remarks , @extra_data
+				);
+			`
+			return sql
+
+		}
+
 	},
 };
 </script>

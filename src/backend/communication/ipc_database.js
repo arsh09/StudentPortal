@@ -2,9 +2,11 @@ import { IpcChannelInterface } from "@/backend/communication/ipc_common"
 
 const {
     DATABASE_INTERFACE_CHANNEL,
-    HANDLE_ADD_STUDENT,
+    HANDLE_SQL_QUERY,
 } = require( "@/backend/communication/constants.js" )
 
+import DatabaseProcess  from "@/backend/process/database_process";
+const databaseProcess = DatabaseProcess.GetInstance();
 
 export class DatabaseInterfaceChannel extends IpcChannelInterface
 {
@@ -26,10 +28,10 @@ export class DatabaseInterfaceChannel extends IpcChannelInterface
         {
             switch (request.params.e)
             {
-                case HANDLE_ADD_STUDENT:
+                case HANDLE_SQL_QUERY:
                 {
-                    data['done'] = true
-                    console.log("HANDLE_CHECK_FOR_UPDATE")
+                    data['response'] = databaseProcess.HandleRunQuery(request)
+                    console.log("HANDLE_SQL_QUERY")
                 } break
 
                 default: 

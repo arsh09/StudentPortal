@@ -10,6 +10,7 @@ module.exports = defineConfig({
 
   pluginOptions: {
     electronBuilder: {
+      externals: [ "better-sqlite3"],
       preload: 'src/preload.js',
     }
   }

@@ -40,7 +40,7 @@ class WindowManagerFactory {
         })
 
         // set main menu to null (set later) 
-        // this.mainWindow.setMenu(null)
+        this.mainWindow.setMenu(null)
 
         // event on the main window
         this.mainWindow.webContents.on("did-finish-load", () => {
@@ -124,7 +124,7 @@ class WindowManagerFactory {
             type: "question",
             buttons: ["Yes", "No"],
             title: "Warning",
-            message: "Do you really want to close the student portal?",
+            message: "Do you really want to close the Student Portal?",
         });
     }
 }

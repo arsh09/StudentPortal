@@ -77,6 +77,8 @@ export default {
 						const value = student[key];
 						survey.setValue(key, value);
 					});
+				} else {
+					survey.setValue('control_q', false)
 				}
 			}
 		},
@@ -97,7 +99,7 @@ export default {
 
 			const gnr_number = new_student_json['gnr_id']
 
-			if (gnr_number.length > 0){
+			if (gnr_number !== "") {
 				this.isCompleting = true;
 				const response = await window.ipcRenderer.send(
 					DATABASE_INTERFACE_CHANNEL,

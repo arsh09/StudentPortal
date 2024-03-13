@@ -75,6 +75,8 @@ export default {
 						const value = student[key];
 						survey.setValue(key, value);
 					});
+				} else {
+					survey.setValue('control_q', false)
 				}
 			}
 		},
@@ -95,7 +97,7 @@ export default {
 			new_student_json["extra_data"] = "";
 
 			const gnr_number = new_student_json['gnr_id']
-			if (gnr_number && gnr_number.length > 0) {
+			if (gnr_number !== "") {
 				this.isCompleting = true;
 
 				const response = await window.ipcRenderer.send(
@@ -122,6 +124,7 @@ export default {
 					this.$router.push("/");
 				}
 			} else {
+				this.survey.setValue('control_q', false)
 				this.handleAddNotification({
 					msg: "Please go back and enter a correct GNR number first."
 				});

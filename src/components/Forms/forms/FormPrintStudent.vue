@@ -30,8 +30,8 @@ export default {
 
 	data() {
 		const survey = new Model(editStudentFormJson);
-		survey.completeText = "Print Student"
-		survey.title = "Print Student Info"
+		survey.completeText = "Print Student";
+		survey.title = "Print Student Info";
 		return {
 			survey,
 			isCompleting: false,
@@ -45,7 +45,7 @@ export default {
 
 	methods: {
 		...mapActions("notifications", ["handleAddNotification"]),
- 
+
 		handle_on_value_changed: async function (survey, options) {
 			survey, options;
 
@@ -83,8 +83,7 @@ export default {
 
 		handle_on_complete: async function (survey, options) {
 			survey, options;
-			options.allow = false 
-			
+			options.allow = false;
 
 			const new_student_json = {};
 			const all_qa = survey.getAllQuestions();
@@ -96,8 +95,8 @@ export default {
 			new_student_json["campus_id"] = "";
 			new_student_json["extra_data"] = "";
 
-			const gnr_number = new_student_json['gnr_id']
-			if (gnr_number && gnr_number.length > 0) {
+			const gnr_number = new_student_json["gnr_id"];
+			if (gnr_number !== "") {
 				this.isCompleting = true;
 
 				const response = await window.ipcRenderer.send(
@@ -107,8 +106,10 @@ export default {
 						params: {
 							e: HANDLE_SQL_QUERY,
 							data: {
-								data_point : new_student_json,
-								sql: this.handle_create_update_student_query(gnr_number),
+								data_point: new_student_json,
+								sql: this.handle_create_update_student_query(
+									gnr_number
+								),
 								type: "UPDATE",
 							},
 						},
@@ -125,10 +126,13 @@ export default {
 				}
 			} else {
 				this.handleAddNotification({
-					msg: "Please go back and enter a correct GNR number first."
+					msg: "Please go back and enter a correct GNR number first.",
 				});
 			}
 
+			this.handleAddNotification({
+				msg: "Print student information to a PDF file is not implemented yet. Please try in next versions.",
+			});
 		},
 
 		handle_create_search_student_query: function (gnr_id) {

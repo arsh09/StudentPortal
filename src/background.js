@@ -1,6 +1,6 @@
 "use strict";
 
-import { app, protocol, BrowserWindow, ipcMain } from "electron";
+import { app, protocol, BrowserWindow, ipcMain  } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
 const isDevelopment = process.env.NODE_ENV !== "production";
@@ -24,14 +24,14 @@ class CreateApp {
     )
   }
 
-  InitializeProtocols(){
+  InitializeProtocols() {
     // Scheme must be registered before the app is ready
     protocol.registerSchemesAsPrivileged([
       { scheme: "app", privileges: { secure: true, standard: true } },
     ]);
   }
 
-  InitializeCloseConditions(){
+  InitializeCloseConditions() {
     // Exit cleanly on request from parent process in development mode.
     if (isDevelopment) {
       if (process.platform === "win32") {
@@ -51,7 +51,7 @@ class CreateApp {
   InitializeApp() {
 
     app.on("window-all-closed", () => {
-        app.quit();
+      app.quit();
     });
 
     app.on("activate", () => {
@@ -60,7 +60,6 @@ class CreateApp {
 
     app.on("ready", async () => {
 
-      // windowManagerFactory.CreateSplashWindow()
       if (isDevelopment && !process.env.IS_TEST) {
         try {
           await installExtension(VUEJS_DEVTOOLS);
@@ -68,7 +67,7 @@ class CreateApp {
           console.error("Vue Devtools failed to install:", e.toString());
         }
       }
-      
+
       if (!process.env.WEBPACK_DEV_SERVER_URL) {
         createProtocol('app')
       }

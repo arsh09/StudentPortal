@@ -1,5 +1,6 @@
 <template>
 	<div id="app">
+		<user-notification-list />
 		<base-banner />
 		<router-view />
 	</div>
@@ -7,12 +8,14 @@
 
 
 <script>
+import UserNotificationList from "@/components/Notifications/UserNotificationList.vue";
 import BaseBanner from "@/components/Fields/BaseBanner.vue";
 
 export default {
 	name: "App",
 	components: {
-    BaseBanner
-  }
+		BaseBanner,
+		UserNotificationList,
+	},
 };
 </script>

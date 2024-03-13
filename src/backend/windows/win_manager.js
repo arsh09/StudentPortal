@@ -31,10 +31,11 @@ class WindowManagerFactory {
             show: true,
             webPreferences: {
                 nodeIntegration: true, //process.env.ELECTRON_NODE_INTEGRATION,
-                contextIsolation: false, //!process.env.ELECTRON_NODE_INTEGRATION,
+                contextIsolation: true, //!process.env.ELECTRON_NODE_INTEGRATION,
                 enableRemoteModule: true,
-                nodeIntegrationInWorker: true,
+                // nodeIntegrationInWorker: false,
                 webSecurity: false,
+                preload: path.join(__dirname, 'preload.js')
             },
         })
 

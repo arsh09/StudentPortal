@@ -10,11 +10,13 @@ export class DatabaseInterfaceChannel extends IpcChannelInterface
 {
     getName() 
     {
+        console.log("getName(): ", DATABASE_INTERFACE_CHANNEL)
         return DATABASE_INTERFACE_CHANNEL
     }   
 
     handle(event, request) 
     {
+        const data = {}
         if (!request.responseChannel)
         {
             request.responseChannel = `${this.getName()}-response`
@@ -26,6 +28,7 @@ export class DatabaseInterfaceChannel extends IpcChannelInterface
             {
                 case HANDLE_ADD_STUDENT:
                 {
+                    data['done'] = true
                     console.log("HANDLE_CHECK_FOR_UPDATE")
                 } break
 
@@ -36,7 +39,7 @@ export class DatabaseInterfaceChannel extends IpcChannelInterface
 
         event.sender.send( request.responseChannel, 
         {
-            data : []
+            data 
         })
     }
 }

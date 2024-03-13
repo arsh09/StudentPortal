@@ -15,14 +15,14 @@ export const newStudentFormJson = {
                             name: "studentname",
                             title: "Student Name",
                             startWithNewLine: true,
-                            isRequired: true
+                            isRequired: false
                         }, 
                         {
                             type: "dropdown",
                             name: "gender",
                             title: "Gender",
                             startWithNewLine: false,
-                            isRequired: true,
+                            isRequired: false,
                             choices: [
                                 { key: 0, value: "Male" },
                                 { key: 1, value: "Female" },
@@ -34,7 +34,7 @@ export const newStudentFormJson = {
                             name: "birthdate",
                             title: "Date of birth",
                             startWithNewLine: false,
-                            isRequired: true,
+                            isRequired: false,
                             inputType: "date",
                             autocomplete: "bday",
                             maxValueExpression: "today()"
@@ -44,13 +44,13 @@ export const newStudentFormJson = {
                             name: "bformid",
                             startWithNewLine: true,
                             title: "Birth (B) form number",
-                            isRequired: true
+                            isRequired: false
                         },
                         {
                             type: "dropdown",
                             name: "country",
                             startWithNewLine: false,
-                            isRequired: true,
+                            isRequired: false,
                             title: "Country",
                             choicesByUrl: {
                                 url: "https://surveyjs.io/api/CountriesExample",
@@ -62,28 +62,28 @@ export const newStudentFormJson = {
                             name: "religion",
                             startWithNewLine: false,
                             title: "Religion",
-                            isRequired: true
+                            isRequired: false
                         },
                         {
                             type: "text",
                             name: "guardianname",
                             startWithNewLine: true,
                             title: "Guardian Name",
-                            isRequired: true
+                            isRequired: false
                         },
                         {
                             type: "text",
                             name: "guardiancnic",
                             startWithNewLine: false,
                             title: "Guardian CNIC",
-                            isRequired: true
+                            isRequired: false
                         },
                         {
                             type: "dropdown",
-                            name: "guardiancnic",
+                            name: "guardianrelation",
                             startWithNewLine: false,
                             title: "Relation with Guardian",
-                            isRequired: true,
+                            isRequired: false,
                             choices: [
                                 { key: 0, value: "Father" },
                                 { key: 1, value: "Mother" },
@@ -94,10 +94,10 @@ export const newStudentFormJson = {
                         },
                         {
                             type: "text",
-                            name: "guardiancnic",
+                            name: "guardiancontact",
                             startWithNewLine: false,
                             title: "Guardian Contact",
-                            isRequired: true
+                            isRequired: false
                         },
                     ]
                 },
@@ -112,7 +112,7 @@ export const newStudentFormJson = {
                             name: "schoolname",
                             title: "School Name",
                             startWithNewLine: true,
-                            isRequired: true,
+                            isRequired: false,
                             choices: [
                                 { key: 0, value: "GBSS Jamia Tajia" },
                             ]
@@ -122,7 +122,7 @@ export const newStudentFormJson = {
                             name: "campusname",
                             startWithNewLine: false,
                             title: "Campus Name",
-                            isRequired: true,
+                            isRequired: false,
                             choices: [
                                 { key: 0, value: "GBSS Jamia Tajia" },
                             ]
@@ -132,14 +132,14 @@ export const newStudentFormJson = {
                             name: "gnr_id",
                             title: "GRN ID",
                             startWithNewLine: false,
-                            isRequired: true,
+                            isRequired: false,
                         },
                         {
                             type: "text",
                             name: "admissiondate",
                             title: "Admission Date",
                             startWithNewLine: true,
-                            isRequired: true,
+                            isRequired: false,
                             inputType: "date",
                             autocomplete: "bday",
                             maxValueExpression: "today()"
@@ -173,12 +173,7 @@ export const newStudentFormJson = {
         }
     ],
     title: "New Student Entry",
-    // logoPosition: "right",
-    // showTOC: true,
     completeText: "Add Student",
-    // showPreviewBeforeComplete: "showAllQuestions",
     showQuestionNumbers: false,
     questionErrorLocation: "bottom",
-    // widthMode: "static",
-    // width: "1200px"
 };

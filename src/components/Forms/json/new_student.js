@@ -177,4 +177,5 @@ export const newStudentFormJson = {
     completeText: "Add Student",
     showQuestionNumbers: false,
     questionErrorLocation: "bottom",
+    width : "100%"
 };

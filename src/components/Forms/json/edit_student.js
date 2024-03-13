@@ -217,4 +217,5 @@ export const editStudentFormJson = {
     pageNextText: "Search",
     showQuestionNumbers: false,
     questionErrorLocation: "bottom",
+    width : "100%"
 };

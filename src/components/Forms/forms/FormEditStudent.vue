@@ -43,7 +43,7 @@ export default {
 
 	methods: {
 		...mapActions("notifications", ["handleAddNotification"]),
-
+ 
 		handle_on_value_changed: async function (survey, options) {
 			survey, options;
 

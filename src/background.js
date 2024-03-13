@@ -1,6 +1,6 @@
 "use strict";
 
-import { app, protocol, BrowserWindow } from "electron";
+import { app, protocol, BrowserWindow, ipcMain } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
 const isDevelopment = process.env.NODE_ENV !== "production";
@@ -8,12 +8,20 @@ const isDevelopment = process.env.NODE_ENV !== "production";
 import WindowManagerFactory from "@/backend/windows/win_manager"
 const windowManagerFactory = WindowManagerFactory.GetInstance()
 
+// ipc interfaces
+import { DatabaseInterfaceChannel } from "@/backend/communication/ipc_database.js"
 
 class CreateApp {
   constructor() {
     this.InitializeProtocols()
     this.InitializeCloseConditions()
     this.InitializeApp()
+
+    this.InitializeIpcReception(
+      [
+        new DatabaseInterfaceChannel(),
+      ]
+    )
   }
 
   InitializeProtocols(){
@@ -69,6 +77,11 @@ class CreateApp {
     });
 
   }
+
+  InitializeIpcReception(ipcChannels) {
+    ipcChannels.forEach(channel => ipcMain.on(channel.getName(), (event, request) => channel.handle(event, request)))
+  }
+
 }
 
 

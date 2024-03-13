@@ -23,13 +23,15 @@ const {
 } = require("@/backend/communication/constants.js");
 
 export default {
-	name: "FormEditStudent",
+	name: "FormRemoveStudent",
 	components: {
 		Survey,
 	},
 
 	data() {
 		const survey = new Model(editStudentFormJson);
+		survey.completeText = "Remove Student"
+		survey.title = "Remove Student Entry"
 		return {
 			survey,
 			isCompleting: false,
@@ -82,7 +84,6 @@ export default {
 		handle_on_complete: async function (survey, options) {
 			survey, options;
 			options.allow = false 
-			
 
 			const new_student_json = {};
 			const all_qa = survey.getAllQuestions();
@@ -95,9 +96,9 @@ export default {
 			new_student_json["extra_data"] = "";
 
 			const gnr_number = new_student_json['gnr_id']
-			if (gnr_number && gnr_number.length > 0) {
-				this.isCompleting = true;
 
+			if (gnr_number.length > 0){
+				this.isCompleting = true;
 				const response = await window.ipcRenderer.send(
 					DATABASE_INTERFACE_CHANNEL,
 					{
@@ -105,9 +106,8 @@ export default {
 						params: {
 							e: HANDLE_SQL_QUERY,
 							data: {
-								data_point : new_student_json,
-								sql: this.handle_create_update_student_query(gnr_number),
-								type: "UPDATE",
+								sql: this.handle_create_delete_student_query(gnr_number),
+								type: "DELETE",
 							},
 						},
 					}
@@ -143,31 +143,10 @@ export default {
 			return sql;
 		},
 
-		handle_create_update_student_query: function (gnr_id) {
+		handle_create_delete_student_query: function (gnr_id) {
 			const sql = `
-				UPDATE students
-				SET
-					student_name = @student_name,
-					gender = @gender,
-					date_of_birth = @date_of_birth,
-					birth_form_number = @birth_form_number,
-					country = @country,
-					religion = @religion,
-					guardian_name = @guardian_name,
-					guardian_cnic = @guardian_cnic,
-					guardian_phone = @guardian_phone,
-					guardian_relation = @guardian_relation,
-					school_name = @school_name,
-					school_id = @school_id,
-					campus_name = @campus_name,
-					campus_id = @campus_id,
-					admission_date = @admission_date,
-					class_id = @class_id,
-					group_id = @group_id,
-					gnr_number = @gnr_number,
-					remarks = @remarks,
-					extra_data = @extra_data
-
+				DELETE FROM
+					students
 				WHERE 
 					gnr_number = '${gnr_id}';
 			`;

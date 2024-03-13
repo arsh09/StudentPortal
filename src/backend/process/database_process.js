@@ -94,6 +94,19 @@ export default class DatabaseProcess
                     }
                 }
 
+                else if ( request.params.data.type === "DELETE" ) {
+                    try{
+                        let smt = this.database.prepare(request.params.data.sql);
+                        smt.run ()
+                        response.msg = "Entry has been permanently deleted."
+                        response.status = true
+                    } catch (e){
+                        console.error(e)
+                        response.status = false 
+                        response.msg = "Unable to insert the entry into the database."
+                    }
+                }
+
                 else {
                     response.status = false 
                     response.msg = "No SQL query type is requested. Please check IPC requests."

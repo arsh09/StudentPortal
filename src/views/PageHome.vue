@@ -17,7 +17,7 @@
 					<base-page page='remove-student' description="Remove student entry" title="Remove Student" />
 				</b-col>
 				<b-col>
-					<base-page page='lookup-student' description="Search and print student details" title="Search Student" />
+					<base-page page='lookup-student' description="Search and print student details" title="Print Student Info" />
 				</b-col>
 
 			</b-row>

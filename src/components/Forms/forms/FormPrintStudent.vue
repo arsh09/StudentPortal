@@ -23,13 +23,15 @@ const {
 } = require("@/backend/communication/constants.js");
 
 export default {
-	name: "FormEditStudent",
+	name: "FormPrintStudent",
 	components: {
 		Survey,
 	},
 
 	data() {
 		const survey = new Model(editStudentFormJson);
+		survey.completeText = "Print Student"
+		survey.title = "Print Student Info"
 		return {
 			survey,
 			isCompleting: false,

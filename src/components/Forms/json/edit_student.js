@@ -1,8 +1,34 @@
-export const newStudentFormJson = {
+
+export const editStudentFormJson = {
 
     pages: [
         {
+            name : "search", 
+            elements : [
+                {
+                    type: "text",
+                    name: "gnr_id",
+                    inputType: "number",
+                    title: "GRN ID",
+                    description : "Enter student GNR number and press Search", 
+                    startWithNewLine: true,
+                    isRequired: false,
+                },
+                {
+                    type: "radiogroup",
+                    visible : false,
+                    name: "control_q",
+                    choices : [
+                        { value: true, text : "Found" },
+                        { value: false, text : "Not Found" },
+                    ],
+                    defaultValue : false
+                }
+            ]
+        },
+        {
             name: "page1",
+            visibleIf : "{control_Q} == true",
             elements: [
                 {
                     type: "panel",
@@ -131,7 +157,6 @@ export const newStudentFormJson = {
                             type: "text",
                             name: "gnr_number",
                             title: "GRN ID",
-                            inputType: "number",
                             startWithNewLine: false,
                             isRequired: false,
                         },
@@ -171,10 +196,25 @@ export const newStudentFormJson = {
 
 
             ]
+        },
+        {
+            name : "page2", 
+            visibleIf : "{control_Q} == false",
+            elements : [
+                {
+                    type: "html",
+                    html: `<div class='shadow-sm p-4 m-4 bg-white rounded text-center'> 
+                                <h5 class='text-wrap pb-4'>
+                                Please enter the correct GNR number. No student was found!
+                                <h/5>  
+                            <div>`,
+                  },
+            ]
         }
     ],
-    title: "New Student Entry",
-    completeText: "Add Student",
+    title: "Edit Student Entry",
+    completeText: "Edit Student",
+    pageNextText: "Search",
     showQuestionNumbers: false,
     questionErrorLocation: "bottom",
 };

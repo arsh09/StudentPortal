@@ -64,17 +64,41 @@ export default class DatabaseProcess
         if (this.database)
         {
             console.log("Running the query")
+            console.log ( request.params.data.type , request.params.data.sql )
             if (request.params.data.sql){
-                try{
-                    const smt = this.database.prepare( request.params.data.sql )
-                    smt.run ( request.params.data.data_point )
-                    response.status = true
-                    response.msg = "Successfully added the entry into the database."
-                } catch(e){
-                    console.error(e)
-                    response.status = false 
-                    response.msg = "Unable to insert the entry into the database."
+
+                if ( request.params.data.type === "INSERT" || request.params.data.type === "UPDATE") {
+                    try{
+                        const smt = this.database.prepare( request.params.data.sql )
+                        smt.run ( request.params.data.data_point )
+                        response.status = true
+                        response.msg = "Successfully added the entry into the database."
+                    } catch(e){
+                        console.error(e)
+                        response.status = false 
+                        response.msg = "Unable to insert the entry into the database."
+                    }
                 }
+
+                else if ( request.params.data.type === "SELECT" ) {
+                    try{
+                        let smt = this.database.prepare(request.params.data.sql);
+                        const data = smt.all();
+                        response.data = data
+                        response.msg = data.length > 0 ? "" : "Unable to find a student with the given GNR ID"
+                        response.status = data.length > 0
+                    } catch (e){
+                        console.error(e)
+                        response.status = false 
+                        response.msg = "Unable to insert the entry into the database."
+                    }
+                }
+
+                else {
+                    response.status = false 
+                    response.msg = "No SQL query type is requested. Please check IPC requests."
+                }
+
             }
             else {
                 response.status = false 

@@ -51,8 +51,7 @@ export default {
 		},
 
 		handle_on_complete: async function (survey, options) {
-
-			options.allow = false 
+			options
 			this.isCompleting = true
 			
 			const new_student_json = {}
@@ -71,7 +70,8 @@ export default {
 					e : HANDLE_SQL_QUERY, 
 					data : {
 						data_point : new_student_json,
-						sql : this.handle_create_add_student_query()
+						sql : this.handle_create_add_student_query(),
+						type : "INSERT",
 					}
 				}
 			})

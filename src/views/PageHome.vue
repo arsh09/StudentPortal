@@ -27,7 +27,7 @@
 					<base-page page='software-settings' description="Export database and setup a new computer" title="Setup Software" />
 				</b-col>
 				<b-col>
-					<base-page page='signout' description="Sign out from the software" title="Sign Out" />
+					<!-- <base-page page='home' description="Sign out from the software" title="Sign Out" /> -->
 				</b-col>
 			</b-row>
 

@@ -64,6 +64,7 @@ export default {
 			new_student_json['campus_id'] = ""
 			new_student_json['extra_data'] = ""
 
+			console.log ( new_student_json )
 			const response = await window.ipcRenderer.send( DATABASE_INTERFACE_CHANNEL, {
 				responseChannel : `${HANDLE_SQL_QUERY}-respoonse`,
 				params : {
@@ -104,7 +105,6 @@ export default {
 				);
 			`
 			return sql
-
 		}
 
 	},

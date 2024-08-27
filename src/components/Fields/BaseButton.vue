@@ -6,11 +6,9 @@
 			</b-card-text>
             <b-card-body>
                 <b-row>
-                    <b-button variant="outline-dark" size="md" block @click="click_fn"> 
+                    <b-button variant="outline-dark" size="md" block @click="$emit('click')"> 
                         {{title}} 
-                        <input v-if="isFileOrFolder" type="file" 
-                            class="hidden-input" @change="handle_file_selection"
-                        />
+                        <slot></slot> 
                     </b-button>
                 </b-row>
             </b-card-body>
@@ -35,28 +33,13 @@ export default {
         description : {
             type : String, 
             default : "Enter a new student entry"
-        },
-        isFileOrFolder : {
-            type : Boolean, 
-            default : false, 
-        },
+        }, 
         
     },
 
-    methods : {
-        handle_file_selection : function(event){
-            console.log( event.target.files )
-        }
-    }
+  
 };
 </script>
 
 
 
-<style >
-
-input[type=file]::-webkit-file-upload-button {
-    visibility: hidden;
-}
-
-</style>

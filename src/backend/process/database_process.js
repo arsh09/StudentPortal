@@ -50,7 +50,7 @@ export default class DatabaseProcess
                 class_id TEXT,
                 group_id TEXT,
                 remarks TEXT,
-                gnr_number REAL, 
+                gnr_number TEXT, 
                 extra_data TEXT
             );`
         
@@ -70,7 +70,13 @@ export default class DatabaseProcess
                 if ( request.params.data.type === "INSERT" || request.params.data.type === "UPDATE") {
                     try{
                         const smt = this.database.prepare( request.params.data.sql )
-                        smt.run ( request.params.data.data_point )
+                        if ( Array.isArray( request.params.data.data_point ) ){
+                            request.params.data.data_point.forEach( item => {
+                                smt.run ( item )
+                            })
+                        } else { 
+                            smt.run ( request.params.data.data_point )
+                        }
                         response.status = true
                         response.msg = "Successfully added the entry into the database."
                     } catch(e){

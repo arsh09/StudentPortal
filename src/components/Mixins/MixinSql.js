@@ -9,26 +9,28 @@ export default {
     data(){
         return { 
             csv_to_db_keys : {
-				"ADMISSION DATE": "admission_date",
+				"STUDENT NAME": "student_name",
+				"DOB": "date_of_birth",
+				"GENDER": "gender",
 				"B FORM NO": "birth_form_number",
+				"RELIGION": "religion",
+				"NATIONALITY": "country",
+
+				"ADMISSION DATE": "admission_date",
 				"CAMPUS SCHOOL NAME": "campus_name",
 				"CAMPUS SCHOOL SEMIS ID": "campus_id",
 				"CLASS ID": "class_id",
-				"DOB": "date_of_birth",
+				"GROUP": "group_id",
+				"GRN": "gnr_number",
+				"MAIN SCHOOL NAME": "school_name",
+				"MAIN SEMIS ID": "main_sermis_id",
+				
+				"RELATION WITH GUARDIAN": "guardian_relation",
 				"FATHER / GUARDIAN CNIC": "guardian_cnic",
 				"FATHER / GUARDIAN CONTACT": "guardian_phone",
 				"FATHER / GUARDIAN NAME": "guardian_name",
-				"GENDER": "gender",
-				"GRN": "gnr_number",
-				"GROUP": "group_id",
-				"MAIN SCHOOL NAME": "school_name",
-				"MAIN SEMIS ID": "main_sermis_id",
-				"NATIONALITY": "country",
-				"RELATION WITH GUARDIAN": "guardian_relation",
-				"RELIGION": "religion",
 				"REMARKS": "remarks",
 				"SR.": "extra_data",
-				"STUDENT NAME": "student_name"
 			},
 
             db_to_csv_keys : {

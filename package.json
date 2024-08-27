@@ -19,7 +19,7 @@
     "core-js": "^3.8.3",
     "papaparse": "^5.4.1",
     "path-browserify": "^1.0.1",
-    "survey-pdf": "^1.11.12",
+    "pdf-lib": "^1.17.1",
     "survey-vue-ui": "^1.9.132",
     "vue": "^2.7.16",
     "vue-router": "^3.5.1",

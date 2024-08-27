@@ -3,10 +3,7 @@
 		<Survey v-if="!isCompleting" :survey="survey" />
 
 		<div v-if="isCompleting" class="send_spinner">
-		</div>
-		<b-button @click="this.handle_save_pdf" block>
-			Save As PDF 
-		</b-button>
+		</div> 
 	</div>
 </template>
 
@@ -15,12 +12,12 @@
 import "survey-core/defaultV2.min.css";
 import { Model } from "survey-core";
 import { Survey } from "survey-vue-ui";
-import { SurveyPDF } from "survey-pdf";
 
 import { editStudentFormJson } from "@/components/Forms/json/edit_student.js";
 
 import { mapActions } from "vuex";
 import MixinSql from '@/components/Mixins/MixinSql';
+import MixinPdf from "@/components/Mixins/MixinPdf"; 
 
 export default {
 	name: "FormPrintStudent",
@@ -28,7 +25,7 @@ export default {
 		Survey,
 	},
 
-	mixins: [MixinSql],
+	mixins: [MixinSql, MixinPdf],
 
 	data() {
 		const survey = new Model(editStudentFormJson);
@@ -97,39 +94,23 @@ export default {
 			const gnr_number = new_student_json["gnr_id"];
 			if (gnr_number !== "") {
 				this.isCompleting = true;
-
-				const response = await this.handle_update_student(new_student_json, gnr_number)
+				await this.handle_create_pdf(new_student_json)
+				this.isCompleting = false;
 
 				this.handleAddNotification({
-					msg: response.data.response.msg,
+					msg: "Exported the student information as PDF.",
 				});
-
-				this.isCompleting = false;
-				if (response.data.response.status) {
-					this.$router.push("/");
-				}
+				
+				
 			} else {
 				this.handleAddNotification({
 					msg: "Please go back and enter a correct GNR number first.",
 				});
 			}
 
-			this.handleAddNotification({
-				msg: "Print student information to a PDF file is not implemented yet. Please try in next versions.",
-			});
+			
 		},
 
-		handle_save_pdf: function() {
-
-			const surveyData = this.survey.data 
-			const pdfDocOptions = {
-				fontSize: 12
-			};
-
-			const surveyPdf = new SurveyPDF(editStudentFormJson, pdfDocOptions);
-			surveyPdf.data = surveyData;
-			surveyPdf.save();
-		}
 	},
 };
 </script>

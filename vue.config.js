@@ -13,8 +13,6 @@ module.exports = defineConfig({
       externals: [ "better-sqlite3"],
       preload: 'src/preload.js',
 
-      nodeIntegration: true,
-      __dirname: true,
       builderOptions : {
         asar : false,  
         appId: "com.buildingbugs.software.student.portal",
@@ -45,11 +43,11 @@ module.exports = defineConfig({
 
         linux: {
           target: ["deb", "rpm", "snap", "AppImage"],
-          category: "app.public.app-category.healthcare-fitness",
+          category: "app.public.app-category.education",
         },
 
         mac: {
-          category: "public.app-category.healthcare-fitness",
+          category: "public.app-category.education",
           gatekeeperAssess: false,
           hardenedRuntime: true,
           type : "distribution", 

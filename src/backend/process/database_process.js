@@ -63,8 +63,6 @@ export default class DatabaseProcess
         const response = {}
         if (this.database)
         {
-            console.log("Running the query")
-            console.log ( request.params.data.type , request.params.data.sql )
             if (request.params.data.sql){
 
                 if ( request.params.data.type === "INSERT" || request.params.data.type === "UPDATE") {
@@ -72,10 +70,11 @@ export default class DatabaseProcess
                         const smt = this.database.prepare( request.params.data.sql )
                         if ( Array.isArray( request.params.data.data_point ) ){
                             request.params.data.data_point.forEach( item => {
-                                smt.run ( item )
+                                smt.run ( this.HandleFixedQueryRow(item) )
                             })
                         } else { 
-                            smt.run ( request.params.data.data_point )
+                            
+                            smt.run ( this.HandleFixedQueryRow(request.params.data.data_point) )
                         }
                         response.status = true
                         response.msg = "Successfully added the entry into the database."
@@ -130,6 +129,32 @@ export default class DatabaseProcess
         }
 
         return response
+    }
+
+    HandleFixedQueryRow(row){
+        const filler_row = {
+            "student_name" : "", 
+            "gender" : "Male", 
+            "date_of_birth" : "0", 
+            "birth_form_number" : "0",
+            "country" : "", 
+            "religion" : "", 
+            "guardian_name" : "", 
+            "guardian_cnic": "", 
+            "guardian_phone" : "", 
+            "guardian_relation" : "", 
+            "school_name" : "", 
+            "school_id" : "", 
+            "campus_name": "", 
+            "campus_id" : "", 
+            "admission_date" : "", 
+            "class_id" : "", 
+            "group_id" : "", 
+            "remarks" : "", 
+            "extra_data" : ""
+        }
+
+        return { ...filler_row, ...row }
     }
 
 }

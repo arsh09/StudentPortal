@@ -16,17 +16,15 @@ import { Survey } from "survey-vue-ui";
 import { editStudentFormJson } from "@/components/Forms/json/edit_student.js";
 
 import { mapActions } from "vuex";
-
-const {
-	DATABASE_INTERFACE_CHANNEL,
-	HANDLE_SQL_QUERY,
-} = require("@/backend/communication/constants.js");
+import MixinSql from '@/components/Mixins/MixinSql';
 
 export default {
 	name: "FormPrintStudent",
 	components: {
 		Survey,
 	},
+
+	mixins: [MixinSql],
 
 	data() {
 		const survey = new Model(editStudentFormJson);
@@ -50,23 +48,8 @@ export default {
 			survey, options;
 
 			if (options.name === "gnr_id" && options.value) {
-				const response = await window.ipcRenderer.send(
-					DATABASE_INTERFACE_CHANNEL,
-					{
-						responseChannel: `${HANDLE_SQL_QUERY}-respoonse`,
-						params: {
-							e: HANDLE_SQL_QUERY,
-							data: {
-								data_point: {},
-								sql: this.handle_create_search_student_query(
-									options.value
-								),
-								type: "SELECT",
-							},
-						},
-					}
-				);
-
+				const response = await this.handle_select_student( options.value ) 
+				
 				if (response.data.response.status) {
 					const student =
 						response.data.response.data[
@@ -99,22 +82,7 @@ export default {
 			if (gnr_number !== "") {
 				this.isCompleting = true;
 
-				const response = await window.ipcRenderer.send(
-					DATABASE_INTERFACE_CHANNEL,
-					{
-						responseChannel: `${HANDLE_SQL_QUERY}-respoonse`,
-						params: {
-							e: HANDLE_SQL_QUERY,
-							data: {
-								data_point: new_student_json,
-								sql: this.handle_create_update_student_query(
-									gnr_number
-								),
-								type: "UPDATE",
-							},
-						},
-					}
-				);
+				const response = await this.handle_update_student(new_student_json, gnr_number)
 
 				this.handleAddNotification({
 					msg: response.data.response.msg,

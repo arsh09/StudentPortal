@@ -16,17 +16,14 @@ import { Survey } from "survey-vue-ui";
 import { editStudentFormJson } from "@/components/Forms/json/edit_student.js";
 
 import { mapActions } from "vuex";
-
-const {
-	DATABASE_INTERFACE_CHANNEL,
-	HANDLE_SQL_QUERY,
-} = require("@/backend/communication/constants.js");
+import MixinSql from '@/components/Mixins/MixinSql';
 
 export default {
 	name: "FormEditStudent",
 	components: {
 		Survey,
 	},
+	mixins: [MixinSql],
 
 	data() {
 		const survey = new Model(editStudentFormJson);
@@ -48,23 +45,7 @@ export default {
 			survey, options;
 
 			if (options.name === "gnr_id" && options.value) {
-				const response = await window.ipcRenderer.send(
-					DATABASE_INTERFACE_CHANNEL,
-					{
-						responseChannel: `${HANDLE_SQL_QUERY}-respoonse`,
-						params: {
-							e: HANDLE_SQL_QUERY,
-							data: {
-								data_point: {},
-								sql: this.handle_create_search_student_query(
-									options.value
-								),
-								type: "SELECT",
-							},
-						},
-					}
-				);
-
+				const response = await this.select_student(options.value)
 				if (response.data.response.status) {
 					const student =
 						response.data.response.data[
@@ -100,20 +81,7 @@ export default {
 			if (gnr_number !== "") {
 				this.isCompleting = true;
 
-				const response = await window.ipcRenderer.send(
-					DATABASE_INTERFACE_CHANNEL,
-					{
-						responseChannel: `${HANDLE_SQL_QUERY}-respoonse`,
-						params: {
-							e: HANDLE_SQL_QUERY,
-							data: {
-								data_point : new_student_json,
-								sql: this.handle_create_update_student_query(gnr_number),
-								type: "UPDATE",
-							},
-						},
-					}
-				);
+				const response = await this.handle_update_student(new_student_json, gnr_number)
 
 				this.handleAddNotification({
 					msg: response.data.response.msg,
@@ -132,50 +100,7 @@ export default {
 
 		},
 
-		handle_create_search_student_query: function (gnr_id) {
-			const sql = `
-				SELECT student_name, gender, date_of_birth, birth_form_number, country, 
-					religion, guardian_name, guardian_cnic, guardian_phone, guardian_relation, 
-					school_name, school_id, campus_name, campus_id, admission_date, 
-					class_id, group_id, gnr_number, remarks
-				
-				FROM students 
-				WHERE gnr_number='${gnr_id}'
-				ORDER BY id
-			`;
-			return sql;
-		},
 
-		handle_create_update_student_query: function (gnr_id) {
-			const sql = `
-				UPDATE students
-				SET
-					student_name = @student_name,
-					gender = @gender,
-					date_of_birth = @date_of_birth,
-					birth_form_number = @birth_form_number,
-					country = @country,
-					religion = @religion,
-					guardian_name = @guardian_name,
-					guardian_cnic = @guardian_cnic,
-					guardian_phone = @guardian_phone,
-					guardian_relation = @guardian_relation,
-					school_name = @school_name,
-					school_id = @school_id,
-					campus_name = @campus_name,
-					campus_id = @campus_id,
-					admission_date = @admission_date,
-					class_id = @class_id,
-					group_id = @group_id,
-					gnr_number = @gnr_number,
-					remarks = @remarks,
-					extra_data = @extra_data
-
-				WHERE 
-					gnr_number = '${gnr_id}';
-			`;
-			return sql;
-		},
 	},
 };
 </script>

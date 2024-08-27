@@ -17,18 +17,17 @@ import { newStudentFormJson } from "@/components/Forms/json/new_student.js";
 
 import { mapActions } from "vuex";
 
+import MixinSql from "@/components/Mixins/MixinSql"
 
-const { 
-	DATABASE_INTERFACE_CHANNEL,
-	HANDLE_SQL_QUERY
-
-} = require("@/backend/communication/constants.js")
 
 export default {
 	name: "FormNewStudent",
+
 	components: {
 		Survey,
 	},
+	
+	mixins: [MixinSql],
 
 	data() {
 		const survey = new Model(newStudentFormJson);
@@ -64,19 +63,7 @@ export default {
 			new_student_json['campus_id'] = ""
 			new_student_json['extra_data'] = ""
 
-			console.log ( new_student_json )
-			const response = await window.ipcRenderer.send( DATABASE_INTERFACE_CHANNEL, {
-				responseChannel : `${HANDLE_SQL_QUERY}-respoonse`,
-				params : {
-					e : HANDLE_SQL_QUERY, 
-					data : {
-						data_point : new_student_json,
-						sql : this.handle_create_add_student_query(),
-						type : "INSERT",
-					}
-				}
-			})
-
+			const response = await this.handle_add_student()
 			this.handleAddNotification({
 				msg : response.data.response.msg
 			})
@@ -87,26 +74,7 @@ export default {
 			}
 
 		},
-
-		handle_create_add_student_query: function(){
-
-			const sql = `
-				INSERT INTO students(
-					student_name, gender, date_of_birth, birth_form_number, country, 
-					religion, guardian_name, guardian_cnic, guardian_phone, guardian_relation, 
-					school_name, school_id, campus_name, campus_id, admission_date, 
-					class_id, group_id, gnr_number, remarks, extra_data
-				) 
-				
-				VALUES( @student_name, @gender, @date_of_birth, @birth_form_number, @country,
-					@religion, @guardian_name, @guardian_cnic, @guardian_phone, @guardian_relation, 
-					@school_name, @school_id, @campus_name, @campus_id, @admission_date, 
-					@class_id, @group_id, @gnr_number, @remarks , @extra_data
-				);
-			`
-			return sql
-		}
-
+ 
 	},
 };
 </script>

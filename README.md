@@ -16,3 +16,4 @@ A very simple student portal for a government school in Pakistan. This is my way
 1) Setup GH flows 
 2) Add a test or two 
 3) Setup user authentication  
+4) Setup auto updates in app

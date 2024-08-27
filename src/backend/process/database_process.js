@@ -51,7 +51,10 @@ export default class DatabaseProcess
                 group_id TEXT,
                 remarks TEXT,
                 gnr_number TEXT, 
-                extra_data TEXT
+                extra_data TEXT,
+                student_image TEXT,
+                student_image_type TEXT,
+                student_image_filename TEXT
             );`
         
         let smt = this.database.prepare(sql)
@@ -73,11 +76,10 @@ export default class DatabaseProcess
                                 smt.run ( this.HandleFixedQueryRow(item) )
                             })
                         } else { 
-                            
                             smt.run ( this.HandleFixedQueryRow(request.params.data.data_point) )
                         }
                         response.status = true
-                        response.msg = "Successfully added the entry into the database."
+                        response.msg = "Successfully inserted/updated the entry into the database."
                     } catch(e){
                         console.error(e)
                         response.status = false 
@@ -151,9 +153,12 @@ export default class DatabaseProcess
             "class_id" : "", 
             "group_id" : "", 
             "remarks" : "", 
-            "extra_data" : ""
+            "extra_data" : "", 
+            "student_image" : "", 
+            "student_image_type" : "",
+            "student_image_filename" : ""
         }
-
+ 
         return { ...filler_row, ...row }
     }
 

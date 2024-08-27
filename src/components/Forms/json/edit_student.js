@@ -129,6 +129,26 @@ export const editStudentFormJson = {
                 },
                 {
                     type: "panel",
+                    name: "personal-information-2",
+                    title: "Student Image",
+                    state: "expanded", 
+                    elements: [
+                        {
+                            type: "file",
+                            name: "student_image",
+                            title: "Please upload student image",
+                            storeDataAsText: true,
+                            allowMultiple: false,
+                            showPreview: true,
+                            imageHeight: 600,
+                            imageWidth: 600,
+                            acceptedTypes: "image/jpeg, image/png"
+                        }
+                    ]
+
+                },
+                {
+                    type: "panel",
                     name: "admission-information",
                     title: "Admission Information",
                     state: "expanded",

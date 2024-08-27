@@ -56,7 +56,19 @@ export default {
 			const new_student_json = {}
 			const all_qa = survey.getAllQuestions()
 			for (const q of all_qa){
-				new_student_json[q.name] = survey.data[q.name] ?? ""
+				if ( q.name === "student_image" ) {
+					if ( survey.data[q.name] ) {
+						new_student_json[q.name] = survey.data[q.name][0].content ?? "";
+						new_student_json[`student_image_type`] = survey.data[q.name][0].type ?? ""
+						new_student_json[`student_image_filename`] = survey.data[q.name][0].name ?? ""
+					} else {
+						new_student_json[q.name] = ""
+						new_student_json[`student_image_type`] = ""
+						new_student_json[`student_image_filename`] = ""
+					}
+				} else {
+					new_student_json[q.name] = survey.data[q.name] ?? "";
+				}
 			}
 
 			new_student_json['school_id'] = ""

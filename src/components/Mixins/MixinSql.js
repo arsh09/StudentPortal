@@ -128,13 +128,15 @@ export default {
 					student_name, gender, date_of_birth, birth_form_number, country, 
 					religion, guardian_name, guardian_cnic, guardian_phone, guardian_relation, 
 					school_name, school_id, campus_name, campus_id, admission_date, 
-					class_id, group_id, gnr_number, remarks, extra_data
+					class_id, group_id, gnr_number, remarks, extra_data, 
+					student_image, student_image_type, student_image_filename
 				) 
 				
 				VALUES( @student_name, @gender, @date_of_birth, @birth_form_number, @country,
 					@religion, @guardian_name, @guardian_cnic, @guardian_phone, @guardian_relation, 
 					@school_name, @school_id, @campus_name, @campus_id, @admission_date, 
-					@class_id, @group_id, @gnr_number, @remarks , @extra_data
+					@class_id, @group_id, @gnr_number, @remarks , @extra_data, 
+					@student_image, @student_image_type, @student_image_filename
 				);
 			`
 			return sql
@@ -145,7 +147,8 @@ export default {
 				SELECT student_name, gender, date_of_birth, birth_form_number, country, 
 					religion, guardian_name, guardian_cnic, guardian_phone, guardian_relation, 
 					school_name, school_id, campus_name, campus_id, admission_date, 
-					class_id, group_id, gnr_number, remarks
+					class_id, group_id, gnr_number, remarks,
+					student_image, student_image_type, student_image_filename
 				
 				FROM students 
 				WHERE gnr_number='${gnr_id}'
@@ -177,7 +180,10 @@ export default {
 					group_id = @group_id,
 					gnr_number = @gnr_number,
 					remarks = @remarks,
-					extra_data = @extra_data
+					extra_data = @extra_data,
+					student_image = @student_image, 
+					student_image_type = @student_image_type, 
+					student_image_filename = @student_image_filename
 
 				WHERE 
 					gnr_number = '${gnr_id}';
@@ -190,7 +196,8 @@ export default {
 				SELECT student_name, gender, date_of_birth, birth_form_number, country, 
 					religion, guardian_name, guardian_cnic, guardian_phone, guardian_relation, 
 					school_name, school_id, campus_name, campus_id, admission_date, 
-					class_id, group_id, gnr_number, remarks
+					class_id, group_id, gnr_number, remarks,
+					student_image, student_image_type, student_image_filename
 				
 				FROM students 
 				ORDER BY id

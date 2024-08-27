@@ -1,6 +1,6 @@
 # Student Portal 
 
-A very simple student portal for a government college in Pakistan. This is my way of giving back to the society. 
+A very simple student portal for a government school in Pakistan. This is my way of giving back to the society. 
 
 
 ## Project setup and build
@@ -10,3 +10,9 @@ A very simple student portal for a government college in Pakistan. This is my wa
 3) Run `npm install` and then `npm run electron:serve`
 4) To build a new release, run `npm run release`
 
+
+## ToDos: 
+
+1) Setup GH flows 
+2) Add a test or two 
+3) Setup user authentication  

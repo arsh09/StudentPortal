@@ -1,6 +1,6 @@
 # Student Portal 
 
-A very simple student portal for a government school in Pakistan. This is my way of giving back to the society. 
+A very simple student portal. 
 
 
 ## Project setup and build
